@@ -42,7 +42,6 @@ def gemini_tool(prompt):
         return "Error generating response."
 
 # Sidebar navigation
-st.sidebar.image("logo.png", width=100)
 st.sidebar.title("📚 AI Study Assistant")
 page = st.sidebar.radio("Navigate", ["Home", "Note Summarizer", "Flashcards", "Quiz Master", "Tutor Chat"])
 
@@ -50,7 +49,7 @@ page = st.sidebar.radio("Navigate", ["Home", "Note Summarizer", "Flashcards", "Q
 if page == "Home":
     st.title("🏠 Welcome to Your AI Study Assistant")
     st.write("Use the sidebar to explore each module.")
-    st.markdown("Built with CrewAI, Gemini, and Streamlit 💙")
+    st.markdown("Built with CrewAI, Gemini, and Streamlit")
 
 elif page == "Note Summarizer":
     st.title("📝 Note Summarizer")
