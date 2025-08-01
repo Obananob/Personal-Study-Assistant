@@ -1,5 +1,8 @@
 import streamlit as st
 import requests
+import sys
+import pysqlite3 
+sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
 import os
 from dotenv import load_dotenv
 from crewai import Agent, Crew, Task
