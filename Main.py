@@ -6,6 +6,7 @@ sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
 import os
 from dotenv import load_dotenv
 from crewai import Agent, Crew, Task
+from crewai_tools import Tool
 
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
@@ -48,11 +49,32 @@ def gemini_tool(prompt):
 st.sidebar.title("📚 AI Study Assistant")
 page = st.sidebar.radio("Navigate", ["Home", "Note Summarizer", "Flashcards", "Quiz Master", "Tutor Chat"])
 
+
+ = Tool(
+    name="Gemini Tool",
+    description="Generates content using Gemini API",
+    func=gemini_tool
+)
+
+summarizer = Agent(
+    role="Note Summarizer",
+    goal="Summarize notes into key concepts",
+    backstory="An academic expert in summarization",
+    tools=[gemini_tool_wrapped],
+    verbose=True
+)
+
 # Page routing
 if page == "Home":
     st.title("🏠 Welcome to Your AI Study Assistant")
     st.write("Use the sidebar to explore each module.")
     st.markdown("Built with CrewAI, Gemini, and Streamlit")
+
+gemini_tool_wrapped = Tool(
+    name="Gemini Tool",
+    description="Generates content using Gemini API",
+    func=gemini_tool
+)
 
 elif page == "Note Summarizer":
     st.title("📝 Note Summarizer")
@@ -62,7 +84,7 @@ elif page == "Note Summarizer":
             role="Note Summarizer",
             goal="Summarize notes into key concepts",
             backstory="An academic expert in summarization",
-            tools=[gemini_tool],
+            tools=[gemini_tool_wrapped],
             verbose=True
         )
         summarize_task = Task(
@@ -82,7 +104,7 @@ elif page == "Flashcards":
             role="Flashcard Generator",
             goal="Create flashcards from summaries",
             backstory="A memory coach specializing in spaced repetition",
-            tools=[gemini_tool],
+            tools=[gemini_tool_wrapped],
             verbose=True
         )
         flashcard_task = Task(
@@ -131,7 +153,7 @@ elif page == "Tutor Chat":
             role="Tutor",
             goal="Answer student questions based on study notes",
             backstory="A friendly and knowledgeable academic tutor",
-            tools=[gemini_tool],
+            tools=[gemini_tool_wrapped],
             verbose=True
         )
         tutor_task = Task(
