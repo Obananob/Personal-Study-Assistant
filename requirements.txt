@@ -2,3 +2,4 @@ streamlit
 python-dotenv
 crewai
 requests
+pysqlite3-bi article 
