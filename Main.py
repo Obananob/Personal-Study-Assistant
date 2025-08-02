@@ -1,12 +1,15 @@
 import streamlit as st
 import requests
-import sys
-import pysqlite3 
-sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
 import os
 from dotenv import load_dotenv
 from crewai import Agent, Crew, Task
 from crewai.tools import BaseTool
+import sys
+try:
+    import pysqlite3
+    sys.modules["sqlite3"] = pysqlite3
+except ImportError:
+    print("pysqlite3 not available — falling back to default sqlite3")
 
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
