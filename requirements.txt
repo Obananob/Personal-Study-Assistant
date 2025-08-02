@@ -3,3 +3,4 @@ python-dotenv
 crewai
 requests
 pysqlite3-binary
+crewai-tools
