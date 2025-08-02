@@ -6,7 +6,7 @@ sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
 import os
 from dotenv import load_dotenv
 from crewai import Agent, Crew, Task
-from crewai import BaseTool
+from crewai.tools import BaseTool
 
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
