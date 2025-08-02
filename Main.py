@@ -50,12 +50,6 @@ st.sidebar.title("📚 AI Study Assistant")
 page = st.sidebar.radio("Navigate", ["Home", "Note Summarizer", "Flashcards", "Quiz Master", "Tutor Chat"])
 
 
- = Tool(
-    name="Gemini Tool",
-    description="Generates content using Gemini API",
-    func=gemini_tool
-)
-
 summarizer = Agent(
     role="Note Summarizer",
     goal="Summarize notes into key concepts",
@@ -66,7 +60,7 @@ summarizer = Agent(
 
 # Page routing
 if page == "Home":
-    st.title("🏠 Welcome to Your AI Study Assistant")
+    st.title("🏠 Welcome to Your Personal Study Assistant")
     st.write("Use the sidebar to explore each module.")
     st.markdown("Built with CrewAI, Gemini, and Streamlit")
 
@@ -152,7 +146,7 @@ elif page == "Tutor Chat":
         tutor = Agent(
             role="Tutor",
             goal="Answer student questions based on study notes",
-            backstory="A friendly and knowledgeable academic tutor",
+            backstory="A friendly and knowledgeable medical academic tutor",
             tools=[gemini_tool_wrapped],
             verbose=True
         )
