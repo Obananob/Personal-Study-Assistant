@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 from crewai import Agent, Crew, Task
 from crewai.tools import BaseTool
 from crewai import LLM
+import litellm
+litellm.set_verbose = true
 import sys
 try:
     import pysqlite3
@@ -15,7 +17,7 @@ except ImportError:
 GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
 gemini_llm = LLM(
     provider = "gemini",
-    model = "gemini-2.5-flash",
+    model = "gemini/gemini-2.5-flash",
     api_key = GEMINI_API_KEY
 )
 # Inject custom fonts and styling
