@@ -12,7 +12,7 @@ except ImportError:
     print("pysqlite3 not available — falling back to default sqlite3")
 
 load_dotenv()
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
 
 # Inject custom fonts and styling
 st.markdown("""
