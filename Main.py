@@ -6,7 +6,7 @@ sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
 import os
 from dotenv import load_dotenv
 from crewai import Agent, Crew, Task
-from crewai_tools.tools import Tool
+from crewai_tools.tools import BaseTool
 
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
@@ -29,27 +29,27 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Gemini tool
-def gemini_tool(prompt):
-    url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {GEMINI_API_KEY}"
-    }
-    data = {
-        "contents": [{"parts": [{"text": prompt}]}]
-    }
-    response = requests.post(url, headers=headers, json=data)
-    result = response.json()
-    try:
-        return result['candidates'][0]['content']['parts'][0]['text']
-    except:
-        return "Error generating response."
+class GeminiTool(BaseTool):
+    name: str = "Gemini Tool"
+    description: str = "Generates content using Gemini API"
+
+    def _run(self, prompt: str) -> str:
+        url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {GEMINI_API_KEY}"
+        }
+        data = {
+            "contents": [{"parts": [{"text": prompt}]}]
+        }
+        response = requests.post(url, headers=headers, json=data)
+        result = response.json()
+        try:
+            return result['candidates'][0]['content']['parts'][0]['text']
+        except:
+            return "Error generating response."
         
-    gemini_tool_wrapped = Tool(
-        name="Gemini Tool",
-        description="Generates content using Gemini API",
-        func=gemini_tool
-    )
+    gemini_tool = GeminiTool()
 
 # Sidebar navigation
 st.sidebar.title("📚 AI Study Assistant")
@@ -70,7 +70,7 @@ elif page == "Note Summarizer":
             role="Note Summarizer",
             goal="Summarize notes into key concepts",
             backstory="An academic expert in summarization",
-            tools=[gemini_tool_wrapped],
+            tools=[gemini_tool],
             verbose=True
         )
         summarize_task = Task(
@@ -90,7 +90,7 @@ elif page == "Flashcards":
             role="Flashcard Generator",
             goal="Create flashcards from summaries",
             backstory="A memory coach specializing in spaced repetition",
-            tools=[gemini_tool_wrapped],
+            tools=[gemini_tool],
             verbose=True
         )
         flashcard_task = Task(
@@ -114,7 +114,7 @@ elif page == "Quiz Master":
             role="Quiz Master",
             goal="Create a short quiz from study notes",
             backstory="An expert in educational assessment",
-            tools=[gemini_tool_wrapped],
+            tools=[gemini_tool],
             verbose=True
         )
         quiz_task = Task(
@@ -139,7 +139,7 @@ elif page == "Tutor Chat":
             role="Tutor",
             goal="Answer student questions based on study notes",
             backstory="A friendly and knowledgeable medical academic tutor",
-            tools=[gemini_tool_wrapped],
+            tools=[gemini_tool],
             verbose=True
         )
         tutor_task = Task(
