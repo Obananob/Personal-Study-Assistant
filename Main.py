@@ -46,9 +46,9 @@ def gemini_tool(prompt):
         return "Error generating response."
         
     gemini_tool_wrapped = Tool(
-    name="Gemini Tool",
-    description="Generates content using Gemini API",
-    func=gemini_tool
+        name="Gemini Tool",
+        description="Generates content using Gemini API",
+        func=gemini_tool
     )
 
 # Sidebar navigation
@@ -114,7 +114,7 @@ elif page == "Quiz Master":
             role="Quiz Master",
             goal="Create a short quiz from study notes",
             backstory="An expert in educational assessment",
-            tools=[gemini_tool],
+            tools=[gemini_tool_wrapped],
             verbose=True
         )
         quiz_task = Task(
