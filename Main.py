@@ -44,6 +44,12 @@ def gemini_tool(prompt):
         return result['candidates'][0]['content']['parts'][0]['text']
     except:
         return "Error generating response."
+        
+    gemini_tool_wrapped = Tool(
+    name="Gemini Tool",
+    description="Generates content using Gemini API",
+    func=gemini_tool
+    )
 
 # Sidebar navigation
 st.sidebar.title("📚 AI Study Assistant")
@@ -55,12 +61,6 @@ if page == "Home":
     st.title("🏠 Welcome to Your Personal Study Assistant")
     st.write("Use the sidebar to explore each module.")
     st.markdown("Built with CrewAI, Gemini, and Streamlit")
-
-gemini_tool_wrapped = Tool(
-    name="Gemini Tool",
-    description="Generates content using Gemini API",
-    func=gemini_tool
-)
 
 elif page == "Note Summarizer":
     st.title("📝 Note Summarizer")
