@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 from crewai import Agent, Crew, Task
 from crewai.tools import BaseTool
+from crewai import LLM
 import sys
 try:
     import pysqlite3
@@ -11,9 +12,12 @@ try:
 except ImportError:
     print("pysqlite3 not available — falling back to default sqlite3")
 
-load_dotenv()
 GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
-
+gemini_llm = LLM(
+    provider = "gemini",
+    model = "gemini-2.5-flash",
+    api_key = st.secrets[GEMINI_API_KEY]
+)
 # Inject custom fonts and styling
 st.markdown("""
     <style>
@@ -74,6 +78,7 @@ elif page == "Note Summarizer":
             goal="Summarize notes into key concepts",
             backstory="An academic expert in summarization",
             tools=[gemini_tool],
+            llm = gemini_llm
             verbose=True
         )
         summarize_task = Task(
@@ -94,6 +99,7 @@ elif page == "Flashcards":
             goal="Create flashcards from summaries",
             backstory="A memory coach specializing in spaced repetition",
             tools=[gemini_tool],
+            llm = gemini_llm
             verbose=True
         )
         flashcard_task = Task(
@@ -118,6 +124,7 @@ elif page == "Quiz Master":
             goal="Create a short quiz from study notes",
             backstory="An expert in educational assessment",
             tools=[gemini_tool],
+            llm = gemini_llm
             verbose=True
         )
         quiz_task = Task(
@@ -143,6 +150,7 @@ elif page == "Tutor Chat":
             goal="Answer student questions based on study notes",
             backstory="A friendly and knowledgeable medical academic tutor",
             tools=[gemini_tool],
+            llm = gemini_llm
             verbose=True
         )
         tutor_task = Task(
