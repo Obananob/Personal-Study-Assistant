@@ -16,7 +16,7 @@ GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
 gemini_llm = LLM(
     provider = "gemini",
     model = "gemini-2.5-flash",
-    api_key = st.secrets[GEMINI_API_KEY]
+    api_key = GEMINI_API_KEY
 )
 # Inject custom fonts and styling
 st.markdown("""
