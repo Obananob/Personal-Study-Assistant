@@ -36,27 +36,27 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Gemini tool
-class GeminiTool(BaseTool):
-    name: str = "Gemini Tool"
-    description: str = "Generates content using Gemini API"
+# class GeminiTool(BaseTool):
+#     name: str = "Gemini Tool"
+#     description: str = "Generates content using Gemini API"
 
-    def _run(self, prompt: str) -> str:
-        url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {GEMINI_API_KEY}"
-        }
-        data = {
-            "contents": [{"parts": [{"text": prompt}]}]
-        }
-        response = requests.post(url, headers=headers, json=data)
-        result = response.json()
-        try:
-            return result['candidates'][0]['content']['parts'][0]['text']
-        except:
-            return "Error generating response."
+#     def _run(self, prompt: str) -> str:
+#         url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
+#         headers = {
+#             "Content-Type": "application/json",
+#             "Authorization": f"Bearer {GEMINI_API_KEY}"
+#         }
+#         data = {
+#             "contents": [{"parts": [{"text": prompt}]}]
+#         }
+#         response = requests.post(url, headers=headers, json=data)
+#         result = response.json()
+#         try:
+#             return result['candidates'][0]['content']['parts'][0]['text']
+#         except:
+#             return "Error generating response."
         
-gemini_tool = GeminiTool()
+# gemini_tool = GeminiTool()
 
 # Sidebar navigation
 st.sidebar.title("📚 AI Study Assistant")
@@ -77,8 +77,8 @@ elif page == "Note Summarizer":
             role="Note Summarizer",
             goal="Summarize notes into key concepts",
             backstory="An academic expert in summarization",
-            tools=[gemini_tool],
-            llm = gemini_llm
+            #tools=[gemini_tool],
+            llm = gemini_llm,
             verbose=True
         )
         summarize_task = Task(
@@ -98,8 +98,8 @@ elif page == "Flashcards":
             role="Flashcard Generator",
             goal="Create flashcards from summaries",
             backstory="A memory coach specializing in spaced repetition",
-            tools=[gemini_tool],
-            llm = gemini_llm
+            #tools=[gemini_tool],
+            llm = gemini_llm,
             verbose=True
         )
         flashcard_task = Task(
@@ -123,8 +123,8 @@ elif page == "Quiz Master":
             role="Quiz Master",
             goal="Create a short quiz from study notes",
             backstory="An expert in educational assessment",
-            tools=[gemini_tool],
-            llm = gemini_llm
+            #tools=[gemini_tool],
+            llm = gemini_llm,
             verbose=True
         )
         quiz_task = Task(
@@ -149,8 +149,8 @@ elif page == "Tutor Chat":
             role="Tutor",
             goal="Answer student questions based on study notes",
             backstory="A friendly and knowledgeable medical academic tutor",
-            tools=[gemini_tool],
-            llm = gemini_llm
+            #tools=[gemini_tool],
+            llm = gemini_llm,
             verbose=True
         )
         tutor_task = Task(
