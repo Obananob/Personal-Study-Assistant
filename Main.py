@@ -50,14 +50,6 @@ st.sidebar.title("📚 AI Study Assistant")
 page = st.sidebar.radio("Navigate", ["Home", "Note Summarizer", "Flashcards", "Quiz Master", "Tutor Chat"])
 
 
-summarizer = Agent(
-    role="Note Summarizer",
-    goal="Summarize notes into key concepts",
-    backstory="An academic expert in summarization",
-    tools=[gemini_tool_wrapped],
-    verbose=True
-)
-
 # Page routing
 if page == "Home":
     st.title("🏠 Welcome to Your Personal Study Assistant")
