@@ -52,7 +52,7 @@ class GeminiTool(BaseTool):
         except:
             return "Error generating response."
         
-    gemini_tool = GeminiTool()
+gemini_tool = GeminiTool()
 
 # Sidebar navigation
 st.sidebar.title("📚 AI Study Assistant")
