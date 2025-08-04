@@ -1,7 +1,7 @@
-streamlit==1.32.0
+streamlit
 crewai
-chromadb==0.4.22
-embedchain==0.1.128
-rich==13.7.1
+chromadb
+embedchain
+rich
 litellm
 requests
