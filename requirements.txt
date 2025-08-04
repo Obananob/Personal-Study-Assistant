@@ -2,5 +2,5 @@ streamlit
 python-dotenv
 crewai
 requests
-pysqlite3-binary
-crewai-tools
+pysqlite3-binary==0.5.1.3380300
+chromadb==0.4.22
