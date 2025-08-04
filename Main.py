@@ -17,7 +17,7 @@ except ImportError:
 GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
 gemini_llm = LLM(
     provider = "gemini",
-    model = "gemini/gemini-2.5-flash",
+    model = "gemini/gemini-2.0-flash",
     api_key = GEMINI_API_KEY
 )
 # Inject custom fonts and styling
