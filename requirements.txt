@@ -1,6 +1,6 @@
-streamlit 
-python-dotenv
+streamlit
 crewai
-requests
-pysqlite3-binary==0.5.1.3380300
 chromadb==0.4.22
+pysqlite3-binary==0.5.1.3380300
+embedchain==0.1.128
+rich==13.7.1
